@@ -1,9 +1,17 @@
 function toFullWidth(string) {
-  return string.replace(/[A-Za-z0-9\-]/g, s => String.fromCharCode(s.charCodeAt(0) + 0xFEE0));
+  return string.replace(/[\w -]/g, s => {
+    return ({
+      ' ': '　'
+    })[s] || String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
+  });
 }
 
 function toHalfWidth(string) {
-  return string.replace(/[Ａ-Ｚａ-ｚ０-９－]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+  return string.replace(/[Ａ-Ｚａ-ｚ０-９＿　ー]/g, s => {
+    return ({
+      '　': ' '
+    })[s] || String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  });
 }
 
 window.onload = e => {
