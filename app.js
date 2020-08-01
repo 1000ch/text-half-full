@@ -14,18 +14,30 @@ function toHalfWidth(string) {
   });
 }
 
-window.onload = e => {
+window.onload = () => {
   const fullInput  = document.querySelector('#full-input');
   const fullOutput = document.querySelector('#full-output');
+  const fullError = document.querySelector('#full-error');
+
+  fullInput.addEventListener('input', () => {
+    try {
+      fullOutput.value = toFullWidth(fullInput.value);
+      fullError.textContent = '';
+    } catch (error) {
+      fullError.textContent = error.message;
+    }
+  });
+
   const halfInput  = document.querySelector('#half-input');
   const halfOutput = document.querySelector('#half-output');
+  const halfError = document.querySelector('#half-error');
 
-  fullInput.addEventListener('input', e => fullOutput.value = toFullWidth(fullInput.value));
-  halfInput.addEventListener('input', e => halfOutput.value = toHalfWidth(halfInput.value));
+  halfInput.addEventListener('input', () => {
+    try {
+      halfOutput.value = toHalfWidth(halfInput.value);
+      halfError.textContent = '';
+    } catch (error) {
+      halfError.textContent = error.message;
+    }
+  });
 };
-
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('service-worker.js', {
-    scope: '/text-half-full/'
-  }).catch(error => console.error(error));
-}
