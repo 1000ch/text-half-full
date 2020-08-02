@@ -1,3 +1,5 @@
+import { documentReady } from 'https://unpkg.com/html-ready';
+
 function toFullWidth(string) {
   return string.replace(/[\w -]/g, s => {
     return ({
@@ -14,7 +16,7 @@ function toHalfWidth(string) {
   });
 }
 
-window.onload = () => {
+documentReady.then(() => {
   const fullInput  = document.querySelector('#full-input');
   const fullOutput = document.querySelector('#full-output');
   const fullError = document.querySelector('#full-error');
@@ -40,4 +42,4 @@ window.onload = () => {
       halfError.textContent = error.message;
     }
   });
-};
+});
